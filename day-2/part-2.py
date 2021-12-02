@@ -1,22 +1,19 @@
 #!/bin/python3
-
 with open("sub-route") as sub_routes_file:
-    aim = 0
-    horizontal_position = 0
-    curr_depth = 0
+    aim = pos = depth = 0
 
     for line in sub_routes_file:
-        instruction = line.split(" ")
-        command = instruction[0]
-        amount = int(instruction[1])
+        command, amount = line.split(" ")
+        amount = int(amount)
+
         if command == "forward":
-            horizontal_position += amount
-            curr_depth += amount * aim
+            pos += amount
+            depth += amount * aim
         elif command == "down":
             aim += amount
         elif command == "up":
             aim -= amount
 
-    print(f"Position: {horizontal_position}")
-    print(f"Depth: {curr_depth}")
-    print(horizontal_position * curr_depth)
+    print(f"Position: {pos}")
+    print(f"Depth: {depth}")
+    print(pos * depth)
