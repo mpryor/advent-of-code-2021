@@ -99,7 +99,6 @@ def build_boards_from_file(filename):
 
 def main():
     bingo_draws, boards = build_boards_from_file("input")
-    score = None
 
     draw_ptr = 0
     last_board_won = False
