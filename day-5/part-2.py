@@ -65,12 +65,7 @@ def main():
         points = line.get_path()
         all_points += points
 
-    grid = []
-    for i in range(0, 1000):
-        row = []
-        for j in range(0, 1000):
-            row.append(0)
-        grid.append(row)
+    grid = [[0 for i in range(1000)] for j in range(1000)]
 
     for point in all_points:
         grid[point.y][point.x] += 1

@@ -48,19 +48,6 @@ class BingoBoard:
             if column_total >= 5:
                 column_win = True
 
-        # diagonal_total = 0
-        # for i in range(0, 5):
-        #     diagonal_total += self.marks[i][i]
-        # if diagonal_total >= 5:
-        #     diagonal_win = True
-
-        # diagonal_total = 0
-        # for i in range(0, 5):
-        #     j = 4 - i
-        #     diagonal_total += self.marks[i][j]
-        # if diagonal_total >= 5:
-        #     diagonal_win = True
-
         if diagonal_win or column_win or row_win:
             return True
         return False
