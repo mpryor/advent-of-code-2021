@@ -1,20 +1,31 @@
 import sys
 import numpy as np
 
-t = 0
-grid = np.genfromtxt("sample", delimiter=1, dtype="int")
+grid = np.genfromtxt("input", delimiter=1, dtype="int")
 
 
+def adj(i, j):
+    return [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]
+
+
+def in_bounds(y, x, grid):
+    return y >= 0 and x >= 0 and y < len(grid) and x < len(grid[y])
+
+
+def search(grid, y, x, visited):
+    if (y, x) in visited or not in_bounds(y, x, grid) or grid[y][x] == 9:
+        return 0
+    else:
+        visited.append((y, x))
+        return sum([search(grid, y, x, visited) for y, x in adj(y, x)]) + 1
+
+
+t = []
 for i, row in enumerate(grid):
     for j, col in enumerate(row):
-        # check if current cell is less than all adjacent cells
-        curr_cell = grid[i][j]
+        adj_cells = [(y, x) for y, x in adj(i, j) if in_bounds(y, x, grid)]
+        curr_min = min(min([grid[y][x] for y, x in adj_cells]), col)
+        if curr_min == col:
+            t.append(search(grid, i, j, []))
 
-        r = grid[i][j + 1] if j + 1 < len(row) else sys.maxsize
-        l = grid[i][j - 1] if j - 1 > -1 else sys.maxsize
-        u = grid[i-1][j] if i - 1 > -1 else sys.maxsize
-        d = grid[i+1][j] if i + 1 < len(grid) else sys.maxsize
-        if curr_cell < r and curr_cell < l and curr_cell < u and curr_cell < d:
-            # we've found the lowest point, now find the size of the basin
-            print(i, j)
-            t += curr_cell + 1
+print(np.product(sorted(t, reverse=True)[0:3]))
