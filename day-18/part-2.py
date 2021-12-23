@@ -148,7 +148,3 @@ with open("input") as input_file:
             max_mag = mag
 
     print(max_mag)
-    # res = json.loads(rows[0])
-    # for i in range(1, len(rows)):
-    #     res = [res, json.loads(rows[i])]
-    #     res = reduce(res)

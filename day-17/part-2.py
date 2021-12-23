@@ -1,3 +1,5 @@
+import numpy as np
+from operator import add, sub
 from copy import copy
 from itertools import product
 
@@ -10,7 +12,7 @@ results = []
 
 possible_xs = range(0, x_range[1] + 10)
 possible_ys = range(y_range[0] - 10, abs(y_range[0]) + 10)
-velocities = [list(v) for v in product(possible_xs, possible_ys)]
+velocities = [*map(list,product(possible_xs, possible_ys))]
 
 for initial_velocity in velocities:
     probe_pos = [0, 0]
@@ -19,16 +21,11 @@ for initial_velocity in velocities:
         probe_pos[0] += velocity[0]
         probe_pos[1] += velocity[1]
 
-        if velocity[0] > 0:
-            velocity[0] -= 1
-        if velocity[0] < 0:
-            velocity[0] += 1
-
+        velocity[0] -= np.sign(velocity[0])
         velocity[1] -= 1
 
         if x_range[0] <= probe_pos[0] <= x_range[1] and y_range[0] <= probe_pos[1] <= y_range[1]:
             results.append(initial_velocity)
             break
 
-print(results)
 print(len(results))
