@@ -23,9 +23,11 @@ def explode(l):
                 exploding_list_range = []
                 exploding_list_str = ""
             nested_count += 1
+
         if nested_count >= 5 and list_str[i + 1] != "[":
             exploding_list_str += char
             exploding_list_range.append(i)
+
         if char == "]":
             if len(exploding_list_str) > 0:
                 prev_int = ""
@@ -93,24 +95,14 @@ def split(l):
 
 
 def reduce(l):
-    is_exploding = True
-    is_splitting = True
+    change = True
     l = str(l)
-    while is_exploding or is_splitting:
-        res = explode(l)
-        if res:
-            is_exploding = True
-            l = res
+    while change:
+        if change := explode(l):
+            l = change
         else:
-            is_exploding = False
-
-        if not is_exploding:
-            res = split(l)
-            if res:
-                is_splitting = True
-                l = res
-            else:
-                is_splitting = False
+            if change := split(l):
+                l = change
     return json.loads(l)
 
 
@@ -132,7 +124,7 @@ def get_magnitude(row):
     return l_mag + r_mag
 
 
-with open("input") as input_file:
+with open("sample") as input_file:
     rows = [json.loads(row.strip()) for row in input_file.readlines()]
     sums = []
     for i, irow in enumerate(rows):
