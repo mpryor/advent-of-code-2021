@@ -1,8 +1,6 @@
 import sys
 import numpy as np
 
-grid = np.genfromtxt("input", delimiter=1, dtype="int")
-
 
 def adj(i, j):
     return [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]
@@ -20,6 +18,7 @@ def search(grid, y, x, visited):
         return sum([search(grid, y, x, visited) for y, x in adj(y, x)]) + 1
 
 
+grid = np.genfromtxt("input", delimiter=1, dtype="int")
 t = []
 for i, row in enumerate(grid):
     for j, col in enumerate(row):
