@@ -1,36 +1,34 @@
-import numpy as np
-from numpy.lib.function_base import flip
+#   0 1 2 3 4
+# 0 X - - - X  
+# 1 - - - - -    
+# 2 - X 
+# 3   x
+# 4
+#
+# Fold along x = 2
 
-grid = np.array([
-    ["x", "-", "-", "-"],
-    ["-", "x", "-", "-"],
-    ["-", "-", "x", "-"],
-    ["-", "-", "-", "x"]
-])
+with open("input") as input_file:
+    points = []
+    for line in input_file:
+        if "fold" not in line and line != "\n":
+            x,y = line.strip().split(",")
+            points.append((int(x),int(y)))
 
+def fold_y(points, y_fold):
+    for i, (x,y) in enumerate(points):
+        if y > y_fold:
+            y = y - y_fold
+            y = y_fold - y
+        points[i] = x,y
+    return list(set(points))
 
-def flip_x(grid):
-    for i in range(len(grid)):
-        for j in range(len(grid[i]) // 2):
-            x_len = len(grid[i])
-            distance_from_end = x_len - j
-            new_j = distance_from_end - 1
-            tmp = grid[i][new_j]
-            grid[i][new_j] = grid[i][j]
-            grid[i][j] = tmp
+def fold_x(points, x_fold):
+    for i, (x,y) in enumerate(points):
+        if x > x_fold:
+            x = x - x_fold
+            x = x_fold - x
+        points[i] = x,y
+    return list(set(points))
 
-
-def flip_y(grid):
-    for i in range(len(grid) // 2):
-        for j in range(len(grid[i])):
-            y_len = len(grid)
-            distance_from_end = y_len - i
-            new_i = distance_from_end - 1
-            tmp = grid[new_i][j]
-            grid[new_i][j] = grid[i][j]
-            grid[i][j] = tmp
-
-
-print(grid)
-flip_y(grid)
-print(grid)
+points = fold_x(points, 655)
+print(len(points))

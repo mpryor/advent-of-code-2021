@@ -1,0 +1,31 @@
+011 - ver 3
+000 - ver 0 (operator)
+1 - type 1 packet count
+00000000010 - 2 packets
+
+    000 - ver 0
+    000 - operator 
+    0 - type 0 bit length
+    000000000010110 - 22 bits
+
+        000 - ver 0
+        100 - literal value
+        01010 - 10
+
+        101 - ver 5
+        100 - literal value
+        01011 - 11
+
+    001 - ver 1
+    000 - operator
+    1 - type 1 packet count
+    00000000010 - 2 packets
+
+        000 - ver 0
+        100
+        01100
+
+        011 - ver 3
+        100
+        01101
+        00 
